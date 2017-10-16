@@ -1,6 +1,6 @@
-FROM mhart/alpine-node
+FROM node:8
 
-MAINTAINER Dmitry Shirokov <deadrunk@gmail.com>
+# MAINTAINER Dmitry Shirokov <deadrunk@gmail.com>
 
 ADD package.json /tmp/package.json
 
@@ -10,12 +10,15 @@ RUN cd /tmp && \
     cp -a /tmp/node_modules /opt/npm-proxy-cache && \
     mkdir -p /opt/npm-proxy-cache/cache
 
-VOLUME /opt/npm-proxy-cache/cache
-
 WORKDIR /opt/npm-proxy-cache
+
 ADD . /opt/npm-proxy-cache
 
-# Expose API port
-EXPOSE 8080
+EXPOSE 80
 
-ENTRYPOINT ["node", "/opt/npm-proxy-cache/bin/npm-proxy-cache"]
+VOLUME /cache
+
+CMD ["./entrypoint.sh"]
+
+RUN chmod +x ./entrypoint.sh
+
