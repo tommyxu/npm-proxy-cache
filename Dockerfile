@@ -1,11 +1,11 @@
 #TAG npmproxy
 
-FROM alpine-node:8
+FROM mhart/alpine-node
 
-ADD package.json /tmp/package.json
+ADD package.json package-lock.json /tmp/
 
 RUN cd /tmp && \
-    npm install --production && \
+    npm install --production --from-lock-file && \
     mkdir -p /opt/npm-proxy-cache && \
     cp -a /tmp/node_modules /opt/npm-proxy-cache && \
     mkdir -p /opt/npm-proxy-cache/cache
