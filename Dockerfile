@@ -1,6 +1,6 @@
-FROM node:8
+#TAG npmproxy
 
-# MAINTAINER Dmitry Shirokov <deadrunk@gmail.com>
+FROM alpine-node:8
 
 ADD package.json /tmp/package.json
 
